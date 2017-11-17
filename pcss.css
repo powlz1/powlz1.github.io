@@ -1,0 +1,61 @@
+body
+{
+  margin-top: 0px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  background-color: #191922;
+}
+.header .links
+{
+  margin-top: 20px;
+  margin-left: 700px;
+}
+.header a
+{
+  text-decoration: none;
+  margin-right: 100px;
+  font-family: segoe UI light;
+  font-size: 50px;
+  color: #C2C2CA;
+}
+.header a:hover
+{
+  color:#fff;
+    text-shadow: 0 0 10px #FFf
+}
+.header a.current
+{
+  color:#fff;
+    text-shadow: 0 0 10px #FFf
+}
+p{
+  font-family: segoe UI light;
+  font-size: 20px;
+  color: #C2C2CA;
+}
+p a
+{
+  text-decoration: none;
+  font-family: segoe UI light;
+  font-size: 20px;
+  color: #fff;
+}
+p a:hover
+{
+
+    text-shadow: 0 0 10px #FFf
+}
+.content
+{
+
+  margin: auto;
+  margin-top: 70px;
+  width: 1500px;
+}
+.content img
+{
+  margin-top: 20px;
+margin-left: 0px;
+margin-bottom: 20px;
+}
