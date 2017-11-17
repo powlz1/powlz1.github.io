@@ -11,7 +11,7 @@
       <div class="header">
         <div class="links">
 
-          <a href="portfolio.html" >Story</a>
+          <a href="index.html" >Story</a>
           <a href="tasks.html" class="current">Tasks</a>
           <a href="essay.html">Essay</a>
         </div>
@@ -25,28 +25,28 @@
 <p>This was challenging as I had very little previous experience with Javascript and had never worked with the JQuery library or the Angular framework before. Naturally, my first step was to familiarise myself somewhat with Javascript and the JQuery library. I went to <a href=" https://www.w3schools.com/js/default.asp "><nobr> W3Schools </nobr></a>  to get a general idea of the basic syntax and structure of Javascript. The next step was to try and emulate what the Angular code was doing in JQuery. This was where I encountered my first issue; because of my lack of knowledge and understanding I tried to rework the existing Angular code to reach a solution when I should have been removing it all together. Upon reflection I should have spent longer researching and become more familiar with the tools I was working with as this would have made the entire process a lot smoother. I discussed my plan and what I was trying to do with Adon and he helped me realise the mistakes I made in trying to rework the code and helped me understand where I went wrong and where to go from there.</p>
 <p>After being set on the right track the first course of action was to completely strip the file of all the AngularJS, which of course stripped the webpage of some core functionality, meaning now I had to fix it. I have attached some examples below of the Angular that could be seen within the addCustomers.EJS file:</p>
 
-<img src="ngrep.png" style="width: 1500px;" alt="ngrep img">
+<img src="ngrep.png" style="width: 1000px;" alt="ngrep img">
 
 <p>The solution for this involved both Javascript and some EJS, which was mainly used to output data which would ultimately be obtained via JavaScript. The initial task was to pull the Meal requirements out of the Main.EJS via the server. Below is an example of the Code I used to get the retrieved meal requirements displaying within their own DIV, so, one meal requirement per div:</p>
 
-<img src="ejscode.png" style="margin-left: 250px;" alt="ejs code img">
+<img src="ejscode.png" style="width: 1000px;" alt="ejs code img">
 
 <p>And here is an image of the site in action:</p>
 
-<img src="mealreqs.png" style="margin-left: 267px;" alt="">
+<img src="mealreqs.png" style="width: 1000px;" alt="">
 
 <p>These tabs obviously have meaningless names since they are from testing but these values are read in from the specified meal requirements in MealOptions.EJS. The next task was to then fill the meal requirements with the necessary data, for example one of the meal categories was vegetables, and I needed to be able to select the set meal requirements for vegetables and any other category from MealOptions.EJS and display it within the meal requirements DIV.  This code was not too dissimilar to the previous code which made this section a fair bit easier, below is the reworked code for this feature:</p>
 
-<img src="ejscode2.png" style="margin-left: 267px;" alt="">
+<img src="ejscode2.png" " alt="">
 <p>
 I also had the chance to experiment with <a href=" https://www.w3schools.com/js/default.asp "><nobr> DataTables </nobr></a>  too to display the customers that are currently saved in the database. I found these tables to be really interesting because they were relatively simple to configure however the functionality gain and aesthetic improvement was really noticeable. To set these tables up you have to include both the CSS and JS files given within the linked tutorial, then pass your table ID into the JavaScript ready function like so:
 </p>
-<img src="table.png" style="margin-left: 475px;" alt="trello img">
+<img src="table.png" style="margin-left: 200px;" alt="trello img">
 <p>
 Here we can see the difference between the two tables, the first image is the old table that was originally in the site and the second image is the new DataTables table. I think the upgrade was well worth doing and has added a cleaner look to the layout of the page and in general makes it look more professional in my opinion, and I can see myself using these tables elsewhere too because of the simplicity and overall quality.
 </p>
-<img src="table2.png" style="width: 1500px;" alt="trello img">
-<img src="table3.png" style="width: 1500px;" alt="trello img">
+<img src="table2.png" style="width: 1000px;" alt="trello img">
+<img src="table3.png" style="width: 1000px;" alt="trello img">
 
 
       </div> <!-- content div end -->
