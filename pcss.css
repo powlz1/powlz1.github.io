@@ -59,3 +59,11 @@ p a:hover
 margin-left: 0px;
 margin-bottom: 20px;
 }
+h1
+{
+  text-decoration: none;
+  margin-left: 450px;
+  font-family: segoe UI light;
+  font-size: 50px;
+  color: #C2C2CA;
+}
