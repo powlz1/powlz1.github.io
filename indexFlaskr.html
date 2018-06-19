@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Resume - Start Bootstrap Theme</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="vendor/devicons/css/devicons.min.css" rel="stylesheet">
+    <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/resume.min.css" rel="stylesheet">
+
+  </head>
+
+  <body id="page-top">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+      <a class="navbar-brand js-scroll-trigger" href="#page-top">
+        <span class="d-block d-lg-none">Start Bootstrap</span>
+        <span class="d-none d-lg-block">
+          <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="img/profile2.jpg" alt=""> <!-- pass in image here -->
+        </span>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#about">Web 3 Flaskr App</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container-fluid p-0">
+
+      <section class="resume-section p-3 p-lg-5 d-flex d-column" id="about">
+        <div class="my-auto">
+          <h1 class="mb-0">Flaskr 
+            <span class="text-primary">App</span>
+          </h1>
+          <div class="subheading mb-5">Zak Powley Web 3 Flaskr App 
+          
+          </div>
+          
+        </div>
+
+    </div>
+	<svg width="960" height="500"></svg>
+<script src="//d3js.org/d3.v4.min.js"></script>
+<script>
+
+//AJAX CALL TO LOAD DATA FROM 10.25.100.59:5000 via /displayData route
+//console.log("here!");
+var LegendOptions = [];
+        $.ajax({
+			type: 'GET',
+			url: '/getData',
+			data: { get_param: 'country' },
+			dataType: 'json',
+			success: function (response) {
+				var columns = ["year"];
+				var data = [];
+
+                //the grpah should have an id attached the the area,
+                // do the same thing on the legend thigns so you can
+                //  hover on them and it appears on the graph
+
+var maxCountry = [];
+				$.each(response, function(i,e){
+                  //  e= countries + their data indivdiually
+                  var values = [];
+                  
+                  $.each(e.coalVal, function(k,v){
+                        var obj = {};
+                        obj["axis"] = k;
+                        obj["value"] = v;
+                        values.push(obj);
+                    });
+                    values.sort(function(a, b){return b.value-a.value});
+
+                    var max = values[0];
+                    //console.log(max);
+                    if(max.value != ""){    
+                        values.sort(function (a,b){return b.axis-a.axis});                 
+                        data.push(values);
+                        //data.push(values);
+
+                        //make an object with both max and e.country {}, so it has the country and the highest value 
+                        var maxObj = {country:e.country,max:max.value,values}; //pass values in here so maxObj can give us the values data
+                        maxCountry.push(maxObj);
+                        //console.log(maxVal, maxCountry, "new object for max and e.country")
+                    }  
+				});                    
+
+                maxCountry.sort(function(x, y){
+                    return d3.descending(x.max, y.max);
+                })
+
+                console.log(maxCountry, "max country here");
+                var d = [];
+                //maxCountry.sort(function(a, b){return b.value-a.value});
+                for(var i=0;i<20;i++){
+                    LegendOptions.push(maxCountry[i].country); //legend options contains the countrie that have the highest values but dont contain the value 
+                    d.push(maxCountry[i].values);
+                /*
+                    //push the values too, not max value, all of them to the country 
+                    for(var j=0;j<46;j++) //46 entries per country 
+                    {
+                    LegendOptions.push(maxCountry[i].values[j].axis); //value= val, axis = year
+                   // LegendOptions.push(maxCountry[i].axis)
+                    }
+                    //console.log(LegendOptions, "leg options here")
+                    console.log(maxCountry, "max country here")
+                    */
+
+                }//will be like this to get the values into the array thing 
+                
+                //Data
+        
+                //sort by size and then grab the top 100 countries 
+                //d.sort();
+                //console.log(d, "sorted data");
+                //console.log(d); //D contains the data here
+            
+                console.log(LegendOptions, "d here");
+                //console.log(data);
+
+                //store the final data value in d so, var d = maxCountry or w/e
+                //need to pass the values and country into the thing
+
+
+
+                 var RadarChart = {
+  draw: function(id, d, options){
+  var cfg = {
+	 radius: 5,
+	 w: 1500,
+	 h: 600,
+	 factor: 1,
+	 factorLegend: .85,
+	 levels: 3,
+	 maxValue: 0,
+	 radians: 2 * Math.PI,
+	 opacityArea: 0.5,
+	 ToRight: 5,
+	 TranslateX: 80,
+	 TranslateY: 30,
+	 ExtraWidthX: 100,
+	 ExtraWidthY: 100,
+	 color: d3.scale.category10()
+	};
+
+	if('undefined' !== typeof options){
+	  for(var i in options){
+		if('undefined' !== typeof options[i]){
+		  cfg[i] = options[i];
+		}
+	  }
+	}
+	cfg.maxValue = Math.max(cfg.maxValue, d3.max(d, function(i){return d3.max(i.map(function(o){return o.value;}))}));
+	var allAxis = (d[0].map(function(i, j){return i.axis}));
+	var total = allAxis.length;
+	var radius = cfg.factor*Math.min(cfg.w/2, cfg.h/2);
+    
+	var Format = d3.format(","); //this puts a dot after the first number, makes 3.9xxx = 3.9xxx 
+    
+	d3.select(id).select("svg").remove();
+
+	var g = d3.select(id)
+			.append("svg")
+			.attr("width",1500)
+			.attr("height", cfg.h+cfg.ExtraWidthY)
+			.append("g")
+			.attr("transform", "translate(" + cfg.TranslateX + "," + cfg.TranslateY + ")");
+			;
+
+	var tooltip;
+
+	//Circular segments
+	for(var j=0; j<cfg.levels-1; j++){
+	  var levelFactor = cfg.factor*radius*((j+1)/cfg.levels);
+	  g.selectAll(".levels")
+	   .data(allAxis)
+	   .enter()
+	   .append("svg:line")
+	   .attr("x1", function(d, i){return levelFactor*(1-cfg.factor*Math.sin(i*cfg.radians/total));})
+	   .attr("y1", function(d, i){return levelFactor*(1-cfg.factor*Math.cos(i*cfg.radians/total));})
+	   .attr("x2", function(d, i){return levelFactor*(1-cfg.factor*Math.sin((i+1)*cfg.radians/total));})
+	   .attr("y2", function(d, i){return levelFactor*(1-cfg.factor*Math.cos((i+1)*cfg.radians/total));})
+	   .attr("class", "line")
+	   .style("stroke", "grey")
+	   .style("stroke-opacity", "0.75")
+	   .style("stroke-width", "0.3px")
+	   .attr("transform", "translate(" + (cfg.w/2-levelFactor) + ", " + (cfg.h/2-levelFactor) + ")");
+	}
+
+	//Text indicating at what % each level is
+	for(var j=0; j<cfg.levels; j++){
+	  var levelFactor = cfg.factor*radius*((j+1)/cfg.levels);
+	  g.selectAll(".levels")
+	   .data([1]) //dummy data
+	   .enter()
+	   .append("svg:text")
+	   .attr("x", function(d){return levelFactor*(1-cfg.factor*Math.sin(0));})
+	   .attr("y", function(d){return levelFactor*(1-cfg.factor*Math.cos(0));})
+	   .attr("class", "legend")
+	   .style("font-family", "sans-serif")
+	   .style("font-size", "10px")
+	   .attr("transform", "translate(" + (cfg.w/2-levelFactor + cfg.ToRight) + ", " + (cfg.h/2-levelFactor) + ")")
+	   .attr("fill", "#737373")
+	   .text(Format((j+1)*cfg.maxValue/cfg.levels));
+	}
+
+	series = 0;
+
+	var axis = g.selectAll(".axis")
+			.data(allAxis)
+			.enter()
+			.append("g")
+			.attr("class", "axis");
+
+	axis.append("line")
+		.attr("x1", cfg.w/2)
+		.attr("y1", cfg.h/2)
+		.attr("x2", function(d, i){return cfg.w/2*(1-cfg.factor*Math.sin(i*cfg.radians/total));})
+		.attr("y2", function(d, i){return cfg.h/2*(1-cfg.factor*Math.cos(i*cfg.radians/total));})
+		.attr("class", "line")
+		.style("stroke", "grey")
+		.style("stroke-width", "1px");
+
+	axis.append("text")
+		.attr("class", "legend")
+		.text(function(d){return d})
+		.style("font-family", "sans-serif")
+		.style("font-size", "11px")
+		.attr("text-anchor", "middle")
+		.attr("dy", "1.5em")
+		.attr("transform", function(d, i){return "translate(0, -10)"})
+		.attr("x", function(d, i){return cfg.w/2*(1-cfg.factorLegend*Math.sin(i*cfg.radians/total))-60*Math.sin(i*cfg.radians/total);})
+		.attr("y", function(d, i){return cfg.h/2*(1-Math.cos(i*cfg.radians/total))-20*Math.cos(i*cfg.radians/total);});
+
+
+	d.forEach(function(y, x){
+	  dataValues = [];
+	  g.selectAll(".nodes")
+		.data(y, function(j, i){
+		  dataValues.push([
+			cfg.w/2*(1-(parseFloat(Math.max(j.value, 0))/cfg.maxValue)*cfg.factor*Math.sin(i*cfg.radians/total)),
+			cfg.h/2*(1-(parseFloat(Math.max(j.value, 0))/cfg.maxValue)*cfg.factor*Math.cos(i*cfg.radians/total))
+		  ]);
+		});
+	  dataValues.push(dataValues[0]);
+	  g.selectAll(".area")
+					 .data([dataValues])
+					 .enter()
+					 .append("polygon")
+					 .attr("class", function(d,i){
+                         return "radar-chart-series"+series;
+                     })
+					 .style("stroke-width", "2px")
+					 .style("stroke", cfg.color(series))
+					 .attr("points",function(d) {
+						 var str="";
+						 for(var pti=0;pti<d.length;pti++){
+							 str=str+d[pti][0]+","+d[pti][1]+" ";
+						 }
+						 return str;
+					  })
+					 .style("fill", function(j, i){return cfg.color(series)})
+					 .style("fill-opacity", cfg.opacityArea)
+					 .on('mouseover', function (d){
+										z = "polygon."+d3.select(this).attr("class");
+										g.selectAll("polygon")
+										 .transition(200)
+										 .style("fill-opacity", 0.1);
+										g.selectAll(z)
+										 .transition(200)
+										 .style("fill-opacity", .7);
+                                         console.log(z, "graph z log value")
+									  })
+					 .on('mouseout', function(){
+										g.selectAll("polygon")
+										 .transition(200)
+										 .style("fill-opacity", cfg.opacityArea);
+					 });
+	  series++;
+	});
+	series=0;
+
+
+	d.forEach(function(y, x){
+	  g.selectAll(".nodes")
+		.data(y).enter()
+		.append("svg:circle")
+		.attr("class", "radar-chart-series"+series)
+		.attr('r', cfg.radius)
+		.attr("alt", function(j){return Math.max(j.value, 0)})
+		.attr("cx", function(j, i){
+		  dataValues.push([
+			cfg.w/2*(1-(parseFloat(Math.max(j.value, 0))/cfg.maxValue)*cfg.factor*Math.sin(i*cfg.radians/total)),
+			cfg.h/2*(1-(parseFloat(Math.max(j.value, 0))/cfg.maxValue)*cfg.factor*Math.cos(i*cfg.radians/total))
+		]);
+		return cfg.w/2*(1-(Math.max(j.value, 0)/cfg.maxValue)*cfg.factor*Math.sin(i*cfg.radians/total));
+		})
+		.attr("cy", function(j, i){
+		  return cfg.h/2*(1-(Math.max(j.value, 0)/cfg.maxValue)*cfg.factor*Math.cos(i*cfg.radians/total));
+		})
+		.attr("data-id", function(j){return j.axis})
+		.style("fill", cfg.color(series)).style("fill-opacity", .9)
+		.on('mouseover', function (d){
+					newX =  parseFloat(d3.select(this).attr('cx')) - 10;
+					newY =  parseFloat(d3.select(this).attr('cy')) - 5;
+
+					tooltip
+						.attr('x', newX)
+						.attr('y', newY)
+						.text(Format(d.value))
+						.transition(200)
+						.style('opacity', 1);
+
+					z = "polygon."+d3.select(this).attr("class");
+					g.selectAll("polygon")
+						.transition(200)
+						.style("fill-opacity", 0.1);
+					g.selectAll(z)
+						.transition(200)
+						.style("fill-opacity", .7);
+				  })
+		.on('mouseout', function(){
+					tooltip
+						.transition(200)
+						.style('opacity', 0);
+					g.selectAll("polygon")
+						.transition(200)
+						.style("fill-opacity", cfg.opacityArea);
+				  })
+		.append("svg:title")
+		.text(function(j){return Math.max(j.value, 0)});
+
+	  series++;
+	});
+	//Tooltip
+	tooltip = g.append('text')
+			   .style('opacity', 0)
+			   .style('font-family', 'sans-serif')
+			   .style('font-size', '13px');
+  }
+};
+
+var w = 500,
+	h = 500;
+
+var colorscale = d3.scale.category10();
+
+//Legend titles
+
+//Options for the Radar chart, other than default
+var mycfg = {
+  w: w,
+  h: h,
+  maxValue: 0.6,
+  levels: 6,
+  ExtraWidthX: 300
+}
+
+//Call function to draw the Radar chart
+//Will expect that data is in %'s
+RadarChart.draw("#chart", d, mycfg);
+
+////////////////////////////////////////////
+/////////// Initiate legend ////////////////
+////////////////////////////////////////////
+
+var svg = d3.select('body')
+	.selectAll('svg')
+	.append('svg')
+	.attr("width", 1300) // makes the cotnainer for the graph bigger
+	.attr("height", 700)
+
+//Create the title for the legend
+var text = svg.append("text")
+	.attr("class", "title")
+	.attr('transform', 'translate(90,0)')
+	.attr("x", w - 70)
+	.attr("y", 10)
+	.attr("font-size", "12px")
+	.attr("fill", "#404040")
+	.text("Countries:");
+
+//Initiate Legend
+//console.log(d, "outside legend"); // data can be reached here
+var legend = svg.append("g")
+  //console.log(d, "inside legend"); //if this is uncommented and doesnt contain data then it prevents the graph from posting - will show nothing
+	.attr("class", "legend")
+	.attr("height", 600)
+	.attr("width", 1500)
+	//.attr('transform', 'translate(200,40)')
+    var firstSet = 10; //get 30 per row
+    var secondSet = 20;
+	var x = 0;
+	//Create colour squares
+	legend.selectAll('rect')
+	  .data(LegendOptions)
+	  .enter()
+	  .append("rect")
+	  .attr("x", w - 65)
+	  .attr("y", function(d, i){ return i * 0;})
+	  .attr("width", 10)
+	  .attr("height", 10)
+      .attr("transform", function(a, i) {
+    //console.log(d,i); //d = country, i = number (how many countries held), i=1 d=Afghanistan, i=2 d=akrotiri etc.
+				
+        //rect stuff
+					if(Math.floor(i/firstSet) == 0) // while i < 30 (i = countries selected, so i = 30 = 30 countries selected)
+					{
+						x = 200;
+                        y=i%firstSet*20;
+					}
+					else if(Math.floor(i/secondSet) == 0){//wil need an else if if there are mroetha 80 coutnries
+						//console.log(d,i, "second set 30 - rest");
+						x = 350;
+                        y=i%firstSet*20;
+					} 
+					return "translate(" + x +"," + y + ")";
+				})
+
+	  .style("fill", function(d, i){ return colorscale(i);})
+      .on("mouseover", function(d, i){
+          console.log(i, "i logged");
+
+          		z = ".radar-chart-series" +i; //z = the area+ id, so the area of the chart with the same id (i) as the legend item hovered
+              //  z = "polygon.radar-chart-serie"+i+" area_0";
+                  console.log(z," key logged Z")
+                  var g = d3.select("#chart");
+								g.selectAll("polygon, circle")
+									.transition(200)
+									.style("opacity", 0); //make all of them transparent
+								g.select(z) //select Z, and make the area with that ID opaque
+									.transition(200)
+									.style("opacity", .9); //make it opaque here so the rest are 0.1 and this is 0.7 
+                                                                       //atm it is filling them all when the first thing is hovered and the rest are doing nothing, and then all go transparent when nothing is hovered 
+      })
+      .on('mouseout', function(){
+          
+					/*tooltip
+						.transition(200)
+						.style('opacity', 0.5);*/
+
+        var g = d3.select("#chart");
+					g.selectAll("polygon, circle")
+						.transition(200)
+						.style("opacity", 0.5);
+				  });
+	//Create text next to squares
+	legend.selectAll('text')
+	  .data(LegendOptions)
+	  .enter()
+	  .append("text")
+	  .attr("x", w - 52)
+	  .attr("y", function(d, i){ return i * 20 + 9;})
+	  .attr("font-size", "11px")
+	  .attr("fill", "#737373")
+
+      .on("mouseover", function(d, i){
+          console.log(i, "i logged");
+
+          		z = ".radar-chart-series" +i; //z = the area+ id, so the area of the chart with the same id (i) as the legend item hovered
+              //  z = "polygon.radar-chart-serie"+i+" area_0";
+                  console.log(z," key logged Z")
+                  var g = d3.select("#chart");
+								g.selectAll("polygon, circle")
+									.transition(200)
+									.style("opacity", 0); //make all of them transparent
+								g.select(z) //select Z, and make the area with that ID opaque
+									.transition(200)
+									.style("opacity", .9); //make it opaque here so the rest are 0.1 and this is 0.7 
+                                                                       //atm it is filling them all when the first thing is hovered and the rest are doing nothing, and then all go transparent when nothing is hovered 
+      })
+      .on('mouseout', function(){
+        var g = d3.select("#chart");
+					g.selectAll("polygon, circle")
+						.transition(200)
+						.style("opacity", 0.5);
+				  })
+
+        .attr("transform", function(a, i) {
+            //text stuff
+    //console.log(d,i); //d = country, i = number (how many countries held), i=1 d=Afghanistan, i=2 d=akrotiri etc.
+					if(Math.floor(i/firstSet) == 0) // while i < 30 (i = countries selected, so i = 30 = 30 countries selected)
+					{
+
+						x = 200;
+                        y=0;
+           // console.log(d, i,  "first set 0 -29");
+					}
+					else if(Math.floor(i/secondSet) == 0){//wil need an else if if there are mroetha 80 coutnries
+						//console.log(d,i, "second set 30 - rest");
+						x = 350;
+                        y=-200;
+					} 
+                    /*else if(Math.floor(i/thirdSet) == 0){//wil need an else if if there are mroetha 80 coutnries
+						//console.log(d,i, "second set 30 - rest");
+						x = 500;
+                        y= i%firstSet*20;
+					}*/
+					return "translate(" + x +"," + y + ")";
+				})
+	  .text(function(d) { return d; });
+	}});
+
+
+	</script>
+</script>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="js/resume.min.js"></script>
+
+  </body>
+
+</html>
