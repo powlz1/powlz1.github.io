@@ -261,8 +261,18 @@ and understandable way as we want the app to be user friendly as to not deter th
 	<br> </br>
 		<br> </br>
 		<p>above we can see the code to do just that, we initialize an OnTouchListener and apply it to the button in question, we then check if the button is being pressed or not, with Action_Up meaning the button is not being pressed down so this is where we would pass in the regular resource file, and then when the button is being pressed down, we want to pass the button the “curved_btn360white” resource, to pass in a drawable layout file we need to call the buttons “setBackgroundResource” method and then direct it towards the file we want to use, which in our case is the “curved_btn360white” file from within our R.drawable folder as this is where our custom layout files are stored. Additionally we have to change the colour of the text as well to maintain a readable label, this is done by simply calling the buttons .setTextColor method, which usually accepts a colour code such as “Color.BLACK”, however since we wanted to specify a specific colour, we had to parse the value before passing it into Color. </p>
-
 <br> </br>
+<p>There was numerous custom layout files used within the app, below is an image of the Stats activity where you can see a variety of the custom interface items including custom buttons, aswell as custom imageviews. </p>
+<br></br>
+<img src="images/example7.jpg" alt="…">
+<br></br>
+<br></br>
+<p>Below I have included the code used to generate these custom layouts and an example of what they would look like.</p>
+<br></br>
+<img src="images/example1.jpg" alt="…">
+<img src="images/example2.jpg" alt="…">
+<img src="images/example3.jpg" alt="…">
+
         </div>
 		
 		
@@ -409,7 +419,7 @@ and understandable way as we want the app to be user friendly as to not deter th
 	  
 	  <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="audatious">
         <div class="my-auto">
-          <h2 class="mb-5">Audacious</h2>  
+          <h2 class="mb-5">Audatious</h2>  
 		  <p>On the 1st of May I attended the reverse pitching session hosted by Thomas. There was a problem presented to do with tracking shipping containers and the want for automated shipping forms accessible to the user when needed online. The company in question is Agility, you can visit their page here:  https://www.agility.com/en/network/new-zealand/</p>
 <p>The discussed problems:</p>
 <p> Instant Pricing – Due to the complex nature of moving goods from A>B and the various components sometimes pricing can take days. We would like to be able to provide instant pricing, in particular to focus on costs to and ex Australia over various modes.</p>
